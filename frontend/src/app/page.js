@@ -2,12 +2,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import placeholder from "../../public/predmety_ico/dsa.png";
+
 export default function Component() {
   const [predmety, setPredmety] = useState([]);
   const [otazky, setOtazky] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchPredmety = async () => {
@@ -17,7 +15,7 @@ export default function Component() {
         setPredmety(predmet);
         console.log(predmety);
       } catch (e) {
-        setError(e);
+        console.log(e);
       }
     };
 
@@ -32,14 +30,14 @@ export default function Component() {
         setOtazky(otazky);
         console.log(otazky);
       } catch (e) {
-        setError(e);
+        console.log(e);
       }
     };
     fetchOtazky();
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#d3d3d3] text-[#d83030]">
+    <div className="flex flex-col min-h-screen bg-gray-200 text-[#d83030]">
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-[#d83030] shadow-md transition-all duration-300 ease-in-out">
         <div className="flex items-center space-x-4">
           <div className="text-2xl font-bold text-[#ffff]">StátniceGuru</div>
@@ -67,12 +65,12 @@ export default function Component() {
             {predmety.map((predmet) => (
               <div
                 key={predmet.predmet_id}
-                className="flex flex-col items-center group bg-[#d83030] p-6 rounded-lg shadow-lg"
+                className="flex flex-col items-center p-6 bg-red-600 rounded-lg shadow-lg group"
               >
                 <Image
                   src={
-                    predmet.img ? predmet.img : "/predmety_ico/placeholder.png"
-                  } // Simplified conditional rendering for image source
+                    predmet.img ? predmet.img : "/predmety_ico/placeholder.webp"
+                  }
                   alt={predmet.nazev}
                   className="mb-4 transition-all duration-300 ease-in-out rounded-lg shadow-lg group-hover:scale-105"
                   width="200"
@@ -89,18 +87,19 @@ export default function Component() {
         </section>
         <section className="p-8">
           <h2 className="text-3xl font-bold text-center text-[##d3d3d3]">
-            Extras
+            Něco je špatně?
           </h2>
           <p className="mt-4 text-center text-[##d3d3d3]">
-            If you have any issues, please feel free to open a GitHub issue.
+            Neváhej mi zanechat Issue na repositáři této webové stránky. A co v
+            nejbližší době se na to kouknu!
           </p>
           <div className="flex justify-center mt-6">
             <Link
-              href="#"
-              className="bg-[##d3d3d3] text-[#d83030] px-6 py-3 rounded-md hover:bg-[##d3d3d3]/80 transition-colors"
+              href="https://github.com/Lynder063/statnice/issues"
+              className="bg-[##d3d3d3] text-red-800 px-6 py-3 font-semibold bg-red-500 rounded-md hover:bg-[##d3d3d3]/80 transition-colors"
               prefetch={false}
             >
-              Open GitHub Issue
+              Otevři nový Github Issue
             </Link>
           </div>
         </section>
