@@ -14,6 +14,8 @@ git clone https://github.com/Lynder063/statnice.git
 cd statnice/
 ```
 
+### Backend
+
 - Configure your `.env` for backend
 
 ```bash
@@ -35,3 +37,19 @@ psql -U statnice -d statnice -f /structures/dump.sql
 ```bash
 node index.js
 ```
+
+### Frontend
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3001](http://localhost:3001) with your browser to see the result.
