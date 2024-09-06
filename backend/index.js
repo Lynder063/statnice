@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const { Pool } = require("pg");
 const app = express();
 const port = 3000;
@@ -6,6 +7,8 @@ require("dotenv").config();
 
 // Middleware for parsing JSON bodies
 app.use(express.json());
+
+app.use(cors());
 
 // PostgreSQL connection configuration
 const pool = new Pool({
@@ -45,7 +48,7 @@ app.get("/okruh", async (req, res) => {
 });
 
 // Endpoint pro získání všech otázek
-app.get("/otazka", async (req, res) => {
+app.get("/otazky", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM public.otazka");
     res.json(result.rows);
