@@ -22,82 +22,47 @@ const logError = (err, res) => {
   res.status(500).json({ error: "Internal server error" });
 };
 
-// Route to get all subjects
-app.get("/predmet", async (req, res) => {
+// Endpoint pro získání všech odpovědí
+app.get("/odpoved", async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM predmet");
+    const result = await pool.query("SELECT * FROM public.odpoved");
     res.json(result.rows);
   } catch (err) {
-    logError(err, res);
+    console.error(err);
+    res.status(500).send("Server Error");
   }
 });
 
-// Route to get a specific subject by ID
-app.get("/predmet/:id", async (req, res) => {
-  const { id } = req.params;
+// Endpoint pro získání všech okruhů
+app.get("/okruh", async (req, res) => {
   try {
-    const result = await pool.query(
-      "SELECT * FROM predmet WHERE predmet_id = $1",
-      [id]
-    );
-    if (result.rows.length === 0) {
-      res.status(404).json({ error: "Subject not found" });
-    } else {
-      res.json(result.rows[0]);
-    }
+    const result = await pool.query("SELECT * FROM public.okruh");
+    res.json(result.rows);
   } catch (err) {
-    logError(err, res);
+    console.error(err);
+    res.status(500).send("Server Error");
   }
 });
 
-// Route to create a new subject
-app.post("/predmet", async (req, res) => {
-  const { nazev, popis, okruh_id } = req.body;
+// Endpoint pro získání všech otázek
+app.get("/otazka", async (req, res) => {
   try {
-    const result = await pool.query(
-      "INSERT INTO predmet (nazev, popis, okruh_id) VALUES ($1, $2, $3) RETURNING *",
-      [nazev, popis, okruh_id]
-    );
-    res.status(201).json(result.rows[0]);
+    const result = await pool.query("SELECT * FROM public.otazka");
+    res.json(result.rows);
   } catch (err) {
-    logError(err, res);
+    console.error(err);
+    res.status(500).send("Server Error");
   }
 });
 
-// Route to update a subject
-app.put("/predmet/:id", async (req, res) => {
-  const { id } = req.params;
-  const { nazev, popis, okruh_id } = req.body;
+// Endpoint pro získání všech předmětů
+app.get("/predmet", async (req, res) => {
   try {
-    const result = await pool.query(
-      "UPDATE predmet SET nazev = $1, popis = $2, okruh_id = $3 WHERE predmet_id = $4 RETURNING *",
-      [nazev, popis, okruh_id, id]
-    );
-    if (result.rows.length === 0) {
-      res.status(404).json({ error: "Subject not found" });
-    } else {
-      res.json(result.rows[0]);
-    }
+    const result = await pool.query("SELECT * FROM public.predmet");
+    res.json(result.rows);
   } catch (err) {
-    logError(err, res);
-  }
-});
-
-// Route to delete a subject
-app.delete("/predmet/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    const result = await pool.query(
-      "DELETE FROM predmet WHERE predmet_id = $1 RETURNING *",
-      [id]
-    );
-    if (result.rows.length === 0) {
-      res.status(404).json({ error: "Subject not found" });
-    } else {
-      res.json(result.rows[0]);
-    }
-  } catch (err) {
-    logError(err, res);
+    console.error(err);
+    res.status(500).send("Server Error");
   }
 });
 
