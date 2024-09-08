@@ -1,9 +1,10 @@
 "use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export default function Component() {
+export default function Homepage() {
   const [predmety, setPredmety] = useState([]);
   const [otazky, setOtazky] = useState([]);
 
@@ -67,16 +68,22 @@ export default function Component() {
                 key={predmet.predmet_id}
                 className="flex flex-col items-center p-6 bg-red-600 rounded-lg shadow-lg group"
               >
-                <Image
-                  src={
-                    predmet.img ? predmet.img : "/predmety_ico/placeholder.webp"
-                  }
-                  alt={predmet.nazev}
-                  className="mb-4 transition-all duration-300 ease-in-out rounded-lg shadow-lg group-hover:scale-105"
-                  width="200"
-                  height="200"
-                  style={{ aspectRatio: "200/200", objectFit: "cover" }}
-                />
+                <Link href={`/subject/${predmet.predmet_id}`}>
+                  {" "}
+                  <Image
+                    src={
+                      predmet.img
+                        ? predmet.img
+                        : "/predmety_ico/placeholder.webp"
+                    }
+                    alt={predmet.nazev}
+                    className="mb-4 transition-all duration-300 ease-in-out rounded-lg shadow-lg group-hover:scale-105"
+                    width="200"
+                    height="200"
+                    style={{ aspectRatio: "200/200", objectFit: "cover" }}
+                  />
+                </Link>
+
                 <h3 className="text-xl font-bold text-[#ffff]">
                   {predmet.nazev}
                 </h3>
