@@ -36,6 +36,18 @@ app.get("/odpoved", async (req, res) => {
   }
 });
 
+app.get("/odpoved/:otazka_id", async (req, res) => {
+  try {
+    const { otazka_id } = req.params;
+    const result = await pool.query(
+      "SELECT * FROM public.odpoved WHERE otazka_id = $1",
+      [otazka_id]
+    );
+    res.json(result.rows);
+  } catch (err) {
+    logError(err, res);
+  }
+});
 // Endpoint pro získání všech okruhů
 app.get("/okruh", async (req, res) => {
   try {

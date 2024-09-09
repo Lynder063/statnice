@@ -69,21 +69,23 @@ export default function Questions({ params }) {
           </h2>
           <div className="grid grid-cols-1 gap-8 mt-8 mb-8">
             {filteredOtazky.map((otazky) => (
-              <div
-                key={otazky.otazka_id}
-                className="flex items-center group bg-[#d83030] p-6 rounded-lg shadow-lg"
-              >
-                <div className="w-1/6">
-                  <h3 className="text-xl font-bold text-[#ffffff]">
-                    {otazky.otazka_id}
-                  </h3>
+              <Link href={`/odpoved/${otazky.otazka_id}`}>
+                <div
+                  key={otazky.otazka_id}
+                  className="flex items-center group bg-[#d83030] p-6 rounded-lg shadow-lg"
+                >
+                  <div className="w-1/6">
+                    <h3 className="text-xl font-bold text-[#ffffff]">
+                      {otazky.otazka_id}
+                    </h3>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-[#ffffff]">
+                      {otazky.text}
+                    </h3>
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-[#ffffff]">
-                    {otazky.text}
-                  </h3>
-                </div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>
@@ -96,26 +98,5 @@ export default function Questions({ params }) {
         </div>
       </footer>
     </div>
-  );
-}
-
-function MenuIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="4" x2="20" y1="12" y2="12" />
-      <line x1="4" x2="20" y1="6" y2="6" />
-      <line x1="4" x2="20" y1="18" y2="18" />
-    </svg>
   );
 }
